@@ -68,15 +68,14 @@ YukarinetteOSCBridge.zip
   // 言語設定のプリセット（10パターンまで登録可能）
   "LANG_PRESETS": [
     { "ItemNo": 1, "language": "en-US", "engine": "microsoft" },
-    { "ItemNo": 2, "language": "en", "engine": "deeplpro" },
-    { "ItemNo": 3, "language": "en", "engine": "deeplpro" },
-    { "ItemNo": 4, "language": "en", "engine": "deeplpro" },
-    { "ItemNo": 5, "language": "en", "engine": "deeplpro" },
-    { "ItemNo": 6, "language": "en", "engine": "deeplpro" },
-    { "ItemNo": 7, "language": "en", "engine": "deeplpro" },
-    { "ItemNo": 8, "language": "en", "engine": "deeplpro" },
-    { "ItemNo": 9, "language": "en", "engine": "deeplpro" },
-    { "ItemNo": 10, "language": "ja", "engine": "microsoft" }
+    { "ItemNo": 2, "language": "de-DE", "engine": "google" },
+    { "ItemNo": 3, "language": "pt-BR", "engine": "google" },
+    { "ItemNo": 4, "language": "fr-FR", "engine": "google" },
+    { "ItemNo": 5, "language": "fi-FI", "engine": "google" },
+    { "ItemNo": 6, "language": "zh-CN", "engine": "google" },
+    { "ItemNo": 7, "language": "ko-KR", "engine": "google" },
+    { "ItemNo": 8, "language": "en-US", "engine": "google" },
+    { "ItemNo": 9, "language": "en-US", "engine": "deeplpro" }
   ],
 
   // ゆかりねっとコネクター Neo API のレジストリ情報
