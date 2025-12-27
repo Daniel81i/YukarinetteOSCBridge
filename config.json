@@ -1,0 +1,24 @@
+{
+  // デバッグログ出力
+  "DEBUG": false,
+
+  // OSC 受信ポート（外部 → このアプリ）
+  "OSC_RECV_PORT": 9000,
+
+  // OSC 送信ポート（このアプリ → 外部）
+  "OSC_SEND_PORT": 9001,
+
+  // OSC 受信パス
+  "OSC_PATH_MUTE": "/yukari/mute",
+  "OSC_PATH_LANGID": "/yukari/langid",
+
+  // OSC 送信パス
+  "OSC_PATH_SEND_MUTE": "/yukari/mute",
+  "OSC_PATH_SEND_LANGID": "/yukari/langid",
+  "OSC_PATH_SEND_RETCODE": "/yukari/retcode",
+
+  // ゆかりねっとコネクター Neo API のレジストリ情報
+  "REGISTRY_HIVE": "HKEY_CURRENT_USER",
+  "REGISTRY_PATH": "SOFTWARE\\YukarinetteConnectorNeo",
+  "REGISTRY_VALUE_HTTP": "http"
+}
