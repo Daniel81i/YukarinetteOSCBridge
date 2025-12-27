@@ -6,26 +6,18 @@ from pythonosc.udp_client import SimpleUDPClient
 
 
 class OSCHandler:
-    def __init__(self, config, on_mute, on_langid):
+    def __init__(self, config, on_input):
         """
-        config: config.json の dict
-        on_mute: Mute 受信時のコールバック
-        on_langid: LangID 受信時のコールバック
+        on_input(value): 受信値を main.py に渡すコールバック
         """
-
         self.config = config
-        self.on_mute = on_mute
-        self.on_langid = on_langid
+        self.on_input = on_input
 
-        # 送信用 OSC クライアント
         self.client = SimpleUDPClient("127.0.0.1", config["OSC_SEND_PORT"])
 
-        # ステータス
-        self.status = "INIT"
-
-    # -------------------------------------------------------
-    # 送信（Mute / LangID / RetCode）
-    # -------------------------------------------------------
+    # ---------------------------
+    # OSC 送信
+    # ---------------------------
     def send_mute(self, value):
         self.client.send_message(self.config["OSC_PATH_SEND_MUTE"], value)
 
@@ -35,28 +27,17 @@ class OSCHandler:
     def send_retcode(self, code):
         self.client.send_message(self.config["OSC_PATH_SEND_RETCODE"], code)
 
-    # -------------------------------------------------------
-    # 受信ハンドラ
-    # -------------------------------------------------------
-    async def _handle_mute(self, address, *args):
-        value = int(args[0])
-        logging.debug(f"OSC Recv Mute: {value}")
-        await self.on_mute(value)
+    # ---------------------------
+    # OSC 受信
+    # ---------------------------
+    async def _handle_input(self, address, *args):
+        value = args[0]
+        logging.debug(f"OSC Recv Input: {value}")
+        await self.on_input(value)
 
-    async def _handle_langid(self, address, *args):
-        value = int(args[0])
-        logging.debug(f"OSC Recv LangID: {value}")
-        await self.on_langid(value)
-
-    # -------------------------------------------------------
-    # OSC サーバー起動
-    # -------------------------------------------------------
     async def start_server(self):
         dispatcher = Dispatcher()
-
-        # 受信パスを config.json から設定
-        dispatcher.map(self.config["OSC_PATH_MUTE"], self._handle_mute)
-        dispatcher.map(self.config["OSC_PATH_LANGID"], self._handle_langid)
+        dispatcher.map(self.config["OSC_PATH_RECV"], self._handle_input)
 
         ip = "0.0.0.0"
         port = self.config["OSC_RECV_PORT"]
@@ -65,6 +46,4 @@ class OSCHandler:
 
         server = AsyncIOOSCUDPServer((ip, port), dispatcher, asyncio.get_event_loop())
         transport, protocol = await server.create_serve_endpoint()
-
-        self.status = "RUNNING"
         return transport
