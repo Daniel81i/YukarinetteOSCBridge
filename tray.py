@@ -3,7 +3,8 @@ import pystray
 from PIL import Image
 
 class TrayIcon:
-    def __init__(self):
+    def __init__(self, on_exit):
+        self.on_exit = on_exit
         self.icon = pystray.Icon("OSC2Yukari", Image.new("RGB", (16, 16), "blue"))
         self.icon.menu = pystray.Menu(
             pystray.MenuItem("Exit", self.exit)
@@ -14,3 +15,4 @@ class TrayIcon:
 
     def exit(self):
         self.icon.stop()
+        self.on_exit()
