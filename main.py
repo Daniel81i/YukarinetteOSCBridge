@@ -1,73 +1,73 @@
 import asyncio
-import logging
 import json
-import winreg
-from pythonosc.dispatcher import Dispatcher
-from pythonosc.osc_server import AsyncIOOSCUDPServer
-from pythonosc.udp_client import SimpleUDPClient
+import logging
 
-from tray import TrayIcon
+from osc_handler import OSCHandler
 from yukari_api import YukariAPI
+from tray import TrayIcon
 
-# ==========================
-# 設定読み込み
-# ==========================
+
 with open("config.json", "r", encoding="utf-8") as f:
     config = json.load(f)
 
 log_level = logging.DEBUG if config.get("DEBUG", False) else logging.INFO
 logging.basicConfig(level=log_level, format="%(asctime)s [%(levelname)s] %(message)s")
 
-# ==========================
-# ゆかり API 初期化
-# ==========================
 api = YukariAPI(config)
 
-# ==========================
-# OSC クライアント（送信用）
-# ==========================
-osc_client = SimpleUDPClient("127.0.0.1", config["OSC_SEND_PORT"])
 
-# ==========================
-# OSC 受信ハンドラ
-# ==========================
-async def on_mute(address, *args):
-    value = int(args[0])
-    ok = await api.set_mute(value)
-    osc_client.send_message(config["OSC_PATH_SEND_RETCODE"], 0 if ok else 1)
+# ---------------------------
+# OSC 受信コールバック
+# ---------------------------
+async def on_input(value):
+    """
+    受信値のルール例：
+    0 → Mute OFF
+    1 → Mute ON
+    100〜199 → LangID (100 → ItemNo=1)
+    """
 
-async def on_langid(address, *args):
-    value = int(args[0])
-    ok = await api.set_langid(value)
-    osc_client.send_message(config["OSC_PATH_SEND_RETCODE"], 0 if ok else 1)
+    retcode = 1  # デフォルトは失敗
 
-# ==========================
-# OSC サーバー起動
-# ==========================
-async def start_osc():
-    dispatcher = Dispatcher()
-    dispatcher.map(config["OSC_PATH_MUTE"], on_mute)
-    dispatcher.map(config["OSC_PATH_LANGID"], on_langid)
+    try:
+        v = int(value)
 
-    server = AsyncIOOSCUDPServer(
-        ("0.0.0.0", config["OSC_RECV_PORT"]),
-        dispatcher,
-        asyncio.get_event_loop()
-    )
-    transport, protocol = await server.create_serve_endpoint()
-    return transport
+        # Mute
+        if v in (0, 1):
+            ok = await api.set_mute(v)
+            retcode = 0 if ok else 1
 
-# ==========================
+        # LangID
+        elif 100 <= v <= 199:
+            item_no = v - 99
+            ok = await api.set_langid(item_no)
+            retcode = 0 if ok else 1
+
+        else:
+            logging.warning(f"Unknown OSC value: {v}")
+
+    except Exception as e:
+        logging.error(f"Error processing OSC input: {e}")
+
+    # 結果を返す
+    osc.send_retcode(retcode)
+
+
+# ---------------------------
 # メイン処理
-# ==========================
+# ---------------------------
 async def main():
+    global osc
+
     tray = TrayIcon()
     tray.start()
 
-    await start_osc()
+    osc = OSCHandler(config, on_input)
+    await osc.start_server()
 
     while True:
         await asyncio.sleep(1)
+
 
 if __name__ == "__main__":
     asyncio.run(main())
