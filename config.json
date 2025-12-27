@@ -1,37 +1,30 @@
 {
-  // デバッグログ出力
   "DEBUG": false,
 
-  // OSC ポート設定
   "OSC_RECV_PORT": 9000,
   "OSC_SEND_PORT": 9001,
 
-  // OSC パス（受信は1つ、送信は3つ）
   "OSC_PATH_RECV": "/avatar/parameters/Translator/Yukakone/Input",
   "OSC_PATH_SEND_MUTE": "/avatar/parameters/Translator/Yukakone/Mute",
   "OSC_PATH_SEND_LANGID": "/avatar/parameters/Translator/Yukakone/TranslationId",
   "OSC_PATH_SEND_RETCODE": "/avatar/parameters/Translator/Yukakone/retcode",
 
-  // ゆかりねっとコネクター Neo API（固定パス）
   "YUKACONE_MUTE_ON": "/api/mute-on",
   "YUKACONE_MUTE_OFF": "/api/mute-off",
   "YUKACONE_LANGID_BASE": "/api/setTranslationParam?slot=1",
 
-  // 言語設定のプリセット（10パターンまで登録可能）
   "LANG_PRESETS": [
     { "ItemNo": 1, "language": "en-US", "engine": "microsoft" },
-    { "ItemNo": 2, "language": "en", "engine": "deeplpro" },
-    { "ItemNo": 3, "language": "en", "engine": "deeplpro" },
-    { "ItemNo": 4, "language": "en", "engine": "deeplpro" },
-    { "ItemNo": 5, "language": "en", "engine": "deeplpro" },
-    { "ItemNo": 6, "language": "en", "engine": "deeplpro" },
-    { "ItemNo": 7, "language": "en", "engine": "deeplpro" },
-    { "ItemNo": 8, "language": "en", "engine": "deeplpro" },
-    { "ItemNo": 9, "language": "en", "engine": "deeplpro" },
-    { "ItemNo": 10, "language": "ja", "engine": "microsoft" }
+    { "ItemNo": 2, "language": "de-DE", "engine": "google" },
+    { "ItemNo": 3, "language": "pt-BR", "engine": "google" },
+    { "ItemNo": 4, "language": "fr-FR", "engine": "google" },
+    { "ItemNo": 5, "language": "fi-FI", "engine": "google" },
+    { "ItemNo": 6, "language": "zh-CN", "engine": "google" },
+    { "ItemNo": 7, "language": "ko-KR", "engine": "google" },
+    { "ItemNo": 8, "language": "en-US", "engine": "google" },
+    { "ItemNo": 9, "language": "en-US", "engine": "deeplpro" }
   ],
 
-  // ゆかりねっとコネクター Neo API のレジストリ情報
   "REGISTRY_HIVE": "HKEY_CURRENT_USER",
   "REGISTRY_PATH": "SOFTWARE\\YukarinetteConnectorNeo",
   "REGISTRY_VALUE_HTTP": "http"
