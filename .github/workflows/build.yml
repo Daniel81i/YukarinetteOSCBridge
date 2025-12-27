@@ -6,7 +6,7 @@ on:
       - "v*"
 
 permissions:
-  contents: write   # ← これが重要！
+  contents: write
 
 jobs:
   build:
@@ -42,6 +42,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: YukarinetteOSCBridge.zip
-          overwrite: true
+          overwrite_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
