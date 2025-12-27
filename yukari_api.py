@@ -2,6 +2,7 @@ import winreg
 import requests
 import logging
 
+
 class YukariAPI:
     def __init__(self, config):
         self.config = config
@@ -17,18 +18,48 @@ class YukariAPI:
 
         return f"http://127.0.0.1:{port}"
 
+    # ---------------------------
+    # Mute
+    # ---------------------------
     async def set_mute(self, value):
         try:
-            r = requests.post(f"{self.base_url}/api/mute", json={"mute": value}, timeout=1)
+            if value == 1:
+                url = self.base_url + self.config["YUKACONE_MUTE_ON"]
+            else:
+                url = self.base_url + self.config["YUKACONE_MUTE_OFF"]
+
+            r = requests.post(url, timeout=1)
             return r.status_code == 200
-        except:
-            logging.error("Mute API failed")
+
+        except Exception as e:
+            logging.error(f"Mute API failed: {e}")
             return False
 
-    async def set_langid(self, value):
+    # ---------------------------
+    # LangID
+    # ---------------------------
+    def _build_langid_url(self, item_no):
+        presets = self.config["LANG_PRESETS"]
+        preset = next((p for p in presets if p["ItemNo"] == item_no), None)
+        if not preset:
+            return None
+
+        base = self.config["YUKACONE_LANGID_BASE"]
+        lang = preset["language"]
+        engine = preset["engine"]
+
+        return f"{self.base_url}{base}&language={lang}&engine={engine}"
+
+    async def set_langid(self, item_no):
         try:
-            r = requests.post(f"{self.base_url}/api/langid", json={"langid": value}, timeout=1)
+            url = self._build_langid_url(item_no)
+            if not url:
+                logging.error("LangID preset not found")
+                return False
+
+            r = requests.post(url, timeout=1)
             return r.status_code == 200
-        except:
-            logging.error("LangID API failed")
+
+        except Exception as e:
+            logging.error(f"LangID API failed: {e}")
             return False
