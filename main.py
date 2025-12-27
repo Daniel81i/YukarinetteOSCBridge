@@ -58,16 +58,28 @@ async def on_input(value):
 # ---------------------------
 async def main():
     global osc
+    global transport
 
-    tray = TrayIcon()
+    tray = TrayIcon(on_exit=on_exit)  # Exit コールバックを渡す
     tray.start()
 
     osc = OSCHandler(config, on_input)
-    await osc.start_server()
+    transport = await osc.start_server()
 
     while True:
         await asyncio.sleep(1)
 
+
+def on_exit():
+    # OSC ポートを閉じる
+    try:
+        transport.close()
+        logging.info("OSC port closed.")
+    except:
+        pass
+
+    # アプリ終了
+    os._exit(0)
 
 if __name__ == "__main__":
     asyncio.run(main())
