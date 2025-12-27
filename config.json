@@ -8,14 +8,15 @@
   // OSC 送信ポート（このアプリ → 外部）
   "OSC_SEND_PORT": 9001,
 
-  // OSC 受信パス
-  "OSC_PATH_MUTE": "/yukari/mute",
-  "OSC_PATH_LANGID": "/yukari/langid",
+  // OSC 送受信パス
+  "OSC_PATH_MUTE": "/avatar/parameters/Translator/Yukakone/Mute",
+  "OSC_PATH_LANGID": "/avatar/parameters/Translator/Yukakone/TranslationId",
+  "OSC_PATH_RETCODE": "/avatar/parameters/Translator/Yukakone/retcode",
 
-  // OSC 送信パス
-  "OSC_PATH_SEND_MUTE": "/yukari/mute",
-  "OSC_PATH_SEND_LANGID": "/yukari/langid",
-  "OSC_PATH_SEND_RETCODE": "/yukari/retcode",
+  // ゆかりねっとコネクター Neo API
+  "YUKACONE_MUTE_ON": "/api/mute-on",
+  "YUKACONE_MUTE_OFF": "/api/mute-off",
+  "YUKACONE_LANGID": "/api/setTranslationParam?slot=1&language=en&engine=deeplpro",
 
   // ゆかりねっとコネクター Neo API のレジストリ情報
   "REGISTRY_HIVE": "HKEY_CURRENT_USER",
