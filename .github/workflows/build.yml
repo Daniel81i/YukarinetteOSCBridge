@@ -1,4 +1,4 @@
-name: Build EXE
+name: Build and Release
 
 on:
   push:
@@ -31,8 +31,13 @@ jobs:
         run: |
           copy config.json dist\
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: Create ZIP
+        run: |
+          powershell Compress-Archive -Path dist\* -DestinationPath OSC2Yukari.zip
+
+      - name: Upload Release Asset
+        uses: softprops/action-gh-release@v2
         with:
-          name: OSC2Yukari
-          path: dist/
+          files: OSC2Yukari.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
