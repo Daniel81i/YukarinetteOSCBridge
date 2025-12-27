@@ -1,3 +1,4 @@
+import os
 import asyncio
 import json
 import logging
@@ -6,6 +7,7 @@ from osc_handler import OSCHandler
 from yukari_api import YukariAPI
 from tray import TrayIcon
 
+transport = None
 
 with open("config.json", "r", encoding="utf-8") as f:
     config = json.load(f)
