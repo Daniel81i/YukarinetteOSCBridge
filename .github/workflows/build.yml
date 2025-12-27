@@ -28,7 +28,7 @@ jobs:
 
       - name: Build with PyInstaller
         run: |
-          pyinstaller --onefile --noconsole main.py --name OSC2Yukari
+          pyinstaller --onefile --noconsole main.py --name YukarinetteOSCBridge
 
       - name: Copy config.json
         run: |
@@ -36,12 +36,12 @@ jobs:
 
       - name: Create ZIP
         run: |
-          powershell Compress-Archive -Path dist\* -DestinationPath OSC2Yukari.zip
+          powershell Compress-Archive -Path dist\* -DestinationPath YukarinetteOSCBridge.zip
 
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v2
         with:
-          files: OSC2Yukari.zip
+          files: YukarinetteOSCBridge.zip
           overwrite: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
