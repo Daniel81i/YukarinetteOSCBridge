@@ -32,7 +32,6 @@ class OSCHandler:
     # ---------------------------
     async def _handle_input(self, address, *args):
         value = args[0]
-        logging.debug(f"OSC Recv Input: {value}")
         if logging.getLogger().isEnabledFor(logging.DEBUG):
             logging.debug(f"[OSC HANDLER] addr={address}, args={args}, value={value}")
         await self.on_input(value)
