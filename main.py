@@ -12,8 +12,8 @@ from tray import TrayIcon
 osc = None
 transport = None
 main_loop = None
-shutdown_event = asyncio.Event()
-shutdown_lock = asyncio.Lock()
+shutdown_event = None
+shutdown_lock = None
 last_exit_reason = None
 
 with open("config.json", "r", encoding="utf-8") as f:
@@ -130,6 +130,8 @@ async def on_input(value):
     100〜199 → LangID (100 → ItemNo=1)
     """
 
+    if logging.getLogger().isEnabledFor(logging.DEBUG):
+        logging.debug(f"[OSC INPUT] raw_value={value}")
     retcode = 1  # デフォルトは失敗
 
     try:
