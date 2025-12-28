@@ -8,7 +8,7 @@ YukarinetteOSCBridge は、**ゆかりねっとコネクター Neo をOSC経由�
 
 ### ✔ OSC 受信
 - VRChat からのゆかりねっとコネクター Neo 設定変更コマンドをOSC で受信
-- コマンドはミュート、翻訳言語変更にたいおう
+- コマンドはミュート、翻訳言語変更に対応
 
 ### ✔ ゆかりねっとコネクター Neo API 送信
 - ゆかりねっとコネクター Neo へ設定変更APIを送信
@@ -28,7 +28,6 @@ YukarinetteOSCBridge は、**ゆかりねっとコネクター Neo をOSC経由�
 
 ### ✔ Windows 通知
 - 起動時  
-- WebSocket 接続成功時  
 - 再接続失敗時  
 
 ---
