@@ -27,8 +27,15 @@ class YukariAPI:
                 url = self.base_url + self.config["YUKACONE_MUTE_ON"]
             else:
                 url = self.base_url + self.config["YUKACONE_MUTE_OFF"]
+            if logging.getLogger().isEnabledFor(logging.DEBUG):
+                logging.debug(f"[API REQUEST] POST {url}")
 
             r = requests.post(url, timeout=1)
+            if logging.getLogger().isEnabledFor(logging.DEBUG):
+                body = r.text
+                if len(body) > 200:
+                    body = body[:200] + "...(truncated)"
+                logging.debug(f"[API RESPONSE] status={r.status_code}, body={body}")
             return r.status_code == 200
 
         except Exception as e:
@@ -56,8 +63,15 @@ class YukariAPI:
             if not url:
                 logging.error("LangID preset not found")
                 return False
+            if logging.getLogger().isEnabledFor(logging.DEBUG):
+                logging.debug(f"[API REQUEST] POST {url}")
 
             r = requests.post(url, timeout=1)
+            if logging.getLogger().isEnabledFor(logging.DEBUG):
+                body = r.text
+                if len(body) > 200:
+                    body = body[:200] + "...(truncated)"
+                logging.debug(f"[API RESPONSE] status={r.status_code}, body={body}")
             return r.status_code == 200
 
         except Exception as e:
