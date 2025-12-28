@@ -14,5 +14,5 @@ class TrayIcon:
         threading.Thread(target=self.icon.run, daemon=True).start()
 
     def exit(self):
-        self.icon.stop()
         self.on_exit()
+        self.icon.stop()
