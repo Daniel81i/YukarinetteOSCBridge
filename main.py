@@ -9,6 +9,7 @@ from osc_handler import OSCHandler
 from yukari_api import YukariAPI
 from tray import TrayIcon
 
+osc = None
 transport = None
 main_loop = None
 shutdown_event = asyncio.Event()
@@ -24,6 +25,95 @@ logging.info("=== YukarinetteOSCBridge started ===")
 logging.info(f"Python version: {sys.version.replace(os.linesep, ' ')}")
 
 api = YukariAPI(config)
+
+
+# ---------------------------
+# shutdown関数
+# ---------------------------
+def is_process_running(process_name: str) -> bool:
+    """Windows の tasklist を使ってプロセスの存在を確認する."""
+    if not process_name:
+        # 未設定なら監視しない扱いにして True を返しておく
+        return True
+
+    try:
+        result = subprocess.run(
+            ["tasklist", "/FI", f"IMAGENAME eq {process_name}"],
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+        return process_name.lower() in result.stdout.lower()
+    except Exception as e:
+        logging.error(f"Process check failed: {e}")
+        # エラーでアプリまで落ちるのを防ぐため True 扱い
+        return True
+
+
+async def process_watchdog():
+    """
+    config["TARGET_PROCESS"] を定期的に監視し、
+    見つからなくなったら shutdown("process_watchdog") を呼ぶ。
+    """
+    global shutdown_event
+
+    target = config.get("TARGET_PROCESS", "")
+    interval = config.get("PROCESS_CHECK_INTERVAL_SEC", 5)
+
+    if not target:
+        logging.info("TARGET_PROCESS not set. Process watchdog disabled.")
+        return
+
+    logging.info(
+        f"Process watchdog enabled. TARGET_PROCESS={target}, interval={interval}s"
+    )
+
+    while True:
+        await asyncio.sleep(interval)
+
+        # すでに終了指示が出ていたら抜ける
+        if shutdown_event is not None and shutdown_event.is_set():
+            break
+
+        if not is_process_running(target):
+            logging.warning(
+                f"Target process '{target}' not found. Requesting shutdown."
+            )
+            await shutdown("process_watchdog")
+            break
+
+
+async def shutdown(reason: str):
+    """
+    アプリ共通の終了処理。
+    - OSC の transport を閉じる
+    - 終了理由を記録
+    - shutdown_event を set して main() を抜けさせる
+    """
+    global transport, shutdown_event, shutdown_lock, last_exit_reason
+
+    if shutdown_event is None or shutdown_lock is None:
+        logging.error("shutdown() called before initialization. reason=%s", reason)
+        os._exit(1)
+
+    async with shutdown_lock:
+        # すでに終了処理中なら二重にやらない
+        if shutdown_event.is_set():
+            return
+
+        last_exit_reason = reason
+        logging.info(f"Shutdown requested. reason={reason}")
+
+        # ★ 使っていたポート(transport)をクローズ（要件 2）
+        if transport is not None:
+            try:
+                transport.close()
+                logging.info("OSC transport closed.")
+            except Exception as e:
+                logging.error(f"Error closing OSC transport: {e}")
+
+        # main() に終了を伝える
+        shutdown_event.set()
 
 
 # ---------------------------
@@ -143,17 +233,34 @@ async def shutdown(reason: str):
 # メイン処理
 # ---------------------------
 async def main():
-    global osc
-    global transport
+    global osc, transport, main_loop, shutdown_event, shutdown_lock
 
+    # 現在のイベントループを記録しておく（on_exit から使う）
+    main_loop = asyncio.get_running_loop()
+
+    # 終了シグナル用の Event / Lock をこのループ上で作成
+    shutdown_event = asyncio.Event()
+    shutdown_lock = asyncio.Lock()
+
+    # トレイアイコン起動
     tray = TrayIcon(on_exit=on_exit)  # Exit コールバックを渡す
     tray.start()
 
+    # OSC サーバー起動
     osc = OSCHandler(config, on_input)
     transport = await osc.start_server()
 
-    while True:
-        await asyncio.sleep(1)
+    # ★ プロセス監視タスク起動（要件 1）
+    asyncio.create_task(process_watchdog())
+
+    # ★ 終了要求が来るまで待機（要件 2・3）
+    try:
+        await shutdown_event.wait()
+    except KeyboardInterrupt:
+        logging.info("KeyboardInterrupt received.")
+        await shutdown("keyboard_interrupt")
+
+    logging.info(f"Application exiting. last_exit_reason={last_exit_reason}")
 
 def on_exit():
     """タスクトレイからの終了メニュー選択時に呼ばれる."""
