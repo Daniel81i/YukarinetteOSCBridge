@@ -83,6 +83,8 @@ YukarinetteOSCBridge.zip
   "REGISTRY_HIVE": "HKEY_CURRENT_USER",
   "REGISTRY_PATH": "SOFTWARE\\YukarinetteConnectorNeo",
   "REGISTRY_VALUE_HTTP": "http",
+
+  // ゆかりねっとコネクター Neo プロセス監視、監視間隔
   "TARGET_PROCESS": "YNC_Neo.exe",
   "PROCESS_CHECK_INTERVAL_SEC": 5
 }
