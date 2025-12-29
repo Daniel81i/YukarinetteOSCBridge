@@ -31,7 +31,6 @@ YukarinetteOSCBridge は、**ゆかりねっとコネクター Neo をOSC経由�
 - 再接続失敗時  
 
 ### ✔ 終了検知
-- WebSocket 切断  
 - 監視プロセスが存在しない場合
 
 ---
