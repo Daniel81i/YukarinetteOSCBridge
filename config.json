@@ -22,7 +22,6 @@
     { "ItemNo": 6, "language": "zh-CN", "engine": "google" },
     { "ItemNo": 7, "language": "ko-KR", "engine": "google" },
     { "ItemNo": 8, "language": "en-US", "engine": "google" },
-    { "ItemNo": 9, "language": "en-US", "engine": "deeplpro" }
   ],
 
   "REGISTRY_HIVE": "HKEY_CURRENT_USER",
