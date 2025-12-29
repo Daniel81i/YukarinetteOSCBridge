@@ -74,7 +74,6 @@ YukarinetteOSCBridge.zip
     { "ItemNo": 6, "language": "zh-CN", "engine": "google" },
     { "ItemNo": 7, "language": "ko-KR", "engine": "google" },
     { "ItemNo": 8, "language": "en-US", "engine": "google" },
-    { "ItemNo": 9, "language": "en-US", "engine": "deeplpro" }
   ],
 
   // ゆかりねっとコネクター Neo API のレジストリ情報
@@ -97,7 +96,7 @@ YukarinetteOSCBridge.zip
 | `YUKACONE_MUTE_ON` | ゆかりねっとコネクター Neo　API　ミュートオン。 |
 | `YUKACONE_MUTE_OFF` | ゆかりねっとコネクター Neo　API　ミュートオフ。 |
 | `YUKACONE_LANGID_BASE` | ゆかりねっとコネクター Neo　API　言語切り替え。 |
-| `LANG_PRESETS` | 言語切り替え設定。 |
+| `LANG_PRESETS` | 言語切り替え設定（最大8）。 |
 | `LANG_PRESETS.ItemNo` | 言語切り替えNo.。 |
 | `LANG_PRESETS.language` | 翻訳言語。 |
 | `LANG_PRESETS.engine` | 翻訳エンジン。 |
