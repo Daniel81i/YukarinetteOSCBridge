@@ -79,7 +79,9 @@ YukarinetteOSCBridge.zip
   // ゆかりねっとコネクター Neo API のレジストリ情報
   "REGISTRY_HIVE": "HKEY_CURRENT_USER",
   "REGISTRY_PATH": "SOFTWARE\\YukarinetteConnectorNeo",
-  "REGISTRY_VALUE_HTTP": "http"
+  "REGISTRY_VALUE_HTTP": "http",
+  "TARGET_PROCESS": "YNC_Neo.exe",
+  "PROCESS_CHECK_INTERVAL_SEC": 5
 }
 ```
 ### config.json の各項目について
@@ -103,6 +105,8 @@ YukarinetteOSCBridge.zip
 | `REGISTRY_HIVE` | OSC のポート番号を取得するレジストリのハイブ。通常は `HKEY_CURRENT_USER`。 |
 | `REGISTRY_PATH` | OSC のポート番号が保存されているレジストリパス。 |
 | `REGISTRY_VALUE_HTTP` | レジストリ内の値の名前。DWORD の場合はポート番号として扱う。 |
+| `TARGET_PROCESS` | 監視プロセス名`。 |
+| `PROCESS_CHECK_INTERVAL_SEC` | プロセス監視間隔（s）。 |
 
 ### 4. YukarinetteLogger.exe を起動  
 タスクトレイにアイコンが表示されます。
