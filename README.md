@@ -1,3 +1,4 @@
+# このリポジトリは開発中であり、動作しません
 # YukarinetteOSCBridge
 
 YukarinetteOSCBridge は、**ゆかりねっとコネクター Neo をOSC経由でVRChat内から操作するするアプリ**です。タスクトレイに常駐し、OSCからのコマンドを受信します。
