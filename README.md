@@ -120,13 +120,13 @@ YukarinetteOSCBridge.zip
 | `YUKACONE_MUTE_OFF` | ゆかりねっとコネクター Neo　API　ミュートオフ。 |
 | `YUKACONE_LANGID_BASE` | ゆかりねっとコネクター Neo　API　言語切り替え。 |
 | `LANG_PRESETS` | 言語切り替え設定（最大8）。 |
-| `LANG_PRESETS.ItemNo` | 言語切り替えNo.。 |
+| `LANG_PRESETS.ItemNo` | 言語切り替えNo。 |
 | `LANG_PRESETS.language` | 翻訳言語。 |
 | `LANG_PRESETS.engine` | 翻訳エンジン。 |
 | `REGISTRY_HIVE` | OSC のポート番号を取得するレジストリのハイブ。通常は `HKEY_CURRENT_USER`。 |
 | `REGISTRY_PATH` | OSC のポート番号が保存されているレジストリパス。 |
 | `REGISTRY_VALUE_HTTP` | レジストリ内の値の名前。DWORD の場合はポート番号として扱う。 |
-| `TARGET_PROCESS` | 監視プロセス名`。 |
+| `TARGET_PROCESS` | 監視プロセス名。 |
 | `PROCESS_CHECK_INTERVAL_SEC` | プロセス監視間隔（s）。 |
 
 ### 4. YukarinetteLogger.exe を起動  
