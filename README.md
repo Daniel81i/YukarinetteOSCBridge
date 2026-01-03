@@ -82,7 +82,7 @@ YukarinetteOSCBridge.zip
   "YUKACONE_MUTE_OFF": "/api/mute-off",
   "YUKACONE_LANGID_BASE": "/api/setTranslationParam?slot=1",
 
-  // 言語設定のプリセット（10パターンまで登録可能）
+  // 言語設定のプリセット（8パターンまで登録可能）
   "LANG_PRESETS": [
     { "ItemNo": 1, "language": "en-US", "engine": "microsoft" },
     { "ItemNo": 2, "language": "de-DE", "engine": "google" },
