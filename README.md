@@ -56,7 +56,8 @@ YukarinetteOSCBridge は、**ゆかりねっとコネクター Neo をOSC経由�
 ```
 YukarinetteOSCBridge.zip
 ├─ YukarinetteOSCBridge.exe
-└─ config.json
+├─ config.json
+└─ YukarinetteOSCBridge.pfab
 ```
 
 ### 2. 任意のフォルダに展開
