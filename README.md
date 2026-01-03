@@ -1,5 +1,11 @@
 # このリポジトリは開発中であり、動作しません
+<div align="center">
+
 # YukarinetteOSCBridge
+
+<p align="center">
+  <img src="./assets/YukarinetteOSCBridge.png" style="border-radius: 100px;" width="200" height="200" alt="YukarinetteOSCBridge">
+</p>
 
 <p align="center">
   <a href="./LICENSE">
@@ -7,6 +13,7 @@
   </a>
   <img src="https://img.shields.io/badge/python-3.12.x-blue?logo=python&logoColor=edb641" alt="python">
 </p>
+</div>
 
 YukarinetteOSCBridge は、**ゆかりねっとコネクター Neo をOSC経由でVRChat内から操作するするアプリ**です。タスクトレイに常駐し、OSCからのコマンドを受信します。
 
