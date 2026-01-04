@@ -77,7 +77,7 @@ YukarinetteOSCBridge.zip
   "OSC_PATH_RECV": "/avatar/parameters/Translator/Yukakone/Input",
   "OSC_PATH_SEND_MUTE": "/avatar/parameters/Translator/Yukakone/Mute",
   "OSC_PATH_SEND_LANGID": "/avatar/parameters/Translator/Yukakone/TranslationId",
-  "OSC_PATH_SEND_RETCODE": "/avatar/parameters/Translator/Yukakone/retcode",
+  "OSC_PATH_SEND_RETCODE": "/avatar/parameters/Translator/Yukakone/Retcode",
 
   // ゆかりねっとコネクター Neo API（固定パス）
   "YUKACONE_MUTE_ON": "/api/mute-on",
