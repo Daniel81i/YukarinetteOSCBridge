@@ -83,7 +83,7 @@ YukarinetteOSCBridge.zip
   "YUKACONE_MUTE_OFF": "/api/mute-off",
   "YUKACONE_LANGID_BASE": "/api/setTranslationParam?slot=1",
 
-  // 言語設定のプリセット（8パターンまで登録可能）
+  // 言語設定のプリセット（12パターンまで登録可能）
   "LANG_PRESETS": [
     { "ItemNo": 1, "language": "en-US", "engine": "microsoft" },
     { "ItemNo": 2, "language": "de-DE", "engine": "google" },
@@ -93,6 +93,10 @@ YukarinetteOSCBridge.zip
     { "ItemNo": 6, "language": "zh-CN", "engine": "google" },
     { "ItemNo": 7, "language": "ko-KR", "engine": "google" },
     { "ItemNo": 8, "language": "en-US", "engine": "google" },
+    { "ItemNo": 9, "language": "en-US", "engine": "google" },
+    { "ItemNo": 10, "language": "en-US", "engine": "google" },
+    { "ItemNo": 11, "language": "en-US", "engine": "google" },
+    { "ItemNo": 12, "language": "en-US", "engine": "google" }
   ],
 
   // ゆかりねっとコネクター Neo API のレジストリ情報
@@ -119,15 +123,15 @@ YukarinetteOSCBridge.zip
 | `YUKACONE_MUTE_ON` | ゆかりねっとコネクター Neo　API　ミュートオン。 |
 | `YUKACONE_MUTE_OFF` | ゆかりねっとコネクター Neo　API　ミュートオフ。 |
 | `YUKACONE_LANGID_BASE` | ゆかりねっとコネクター Neo　API　言語切り替え。 |
-| `LANG_PRESETS` | 言語切り替え設定（最大8）。 |
+| `LANG_PRESETS` | 言語切り替え設定（最大12）。 |
 | `LANG_PRESETS.ItemNo` | 言語切り替えNo。 |
-| `LANG_PRESETS.language` | 翻訳言語。 |
-| `LANG_PRESETS.engine` | 翻訳エンジン。 |
+| `LANG_PRESETS.language` | 翻訳言語。（言語タグ） |
+| `LANG_PRESETS.engine` | 翻訳エンジン（google,microsoft,deeplpro,deeplfree,amazon,amazon-eu,googletrans,watson,Papago,papago-app,share,gas,off）。 |
 | `REGISTRY_HIVE` | OSC のポート番号を取得するレジストリのハイブ。通常は `HKEY_CURRENT_USER`。 |
 | `REGISTRY_PATH` | OSC のポート番号が保存されているレジストリパス。 |
 | `REGISTRY_VALUE_HTTP` | レジストリ内の値の名前。DWORD の場合はポート番号として扱う。 |
-| `TARGET_PROCESS` | 監視プロセス名。 |
-| `PROCESS_CHECK_INTERVAL_SEC` | プロセス監視間隔（s）。 |
+| `TARGET_PROCESS` | 終了監視プロセス名。 |
+| `PROCESS_CHECK_INTERVAL_SEC` | 終了監視プロセス監視間隔（s）。 |
 
 ### 4. YukarinetteLogger.exe を起動  
 タスクトレイにアイコンが表示されます。
