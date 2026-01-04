@@ -27,7 +27,8 @@ YukarinetteOSCBridge は、**ゆかりねっとコネクター Neo をOSC経由�
 
 ### ✔ ゆかりねっとコネクター Neo API 送信
 - ゆかりねっとコネクター Neo へ設定変更APIを送信
-- ゆかりねっとコネクター Neoの仕様に従いレジストリから http のポート番号を自動取得（DWORD の場合は `http://127.0.0.1:PORT` として組み立て）
+- ゆかりねっとコネクター Neo の仕様に従いレジストリから http のポート番号を自動取得（DWORD の場合は `http://127.0.0.1:PORT` として組み立て）
+- VRChatプラグインの仕様上、ゆかりねっとコネクター Neo の翻訳言語設定スロット1のみを差し替えることで複数の言語切り替えを行っています
 
 ### ✔ アプリケーションログ exe 名に合わせたグファイル名
 - YukarinetteOSCBridge.exe → YukarinetteOSCBridge.log
